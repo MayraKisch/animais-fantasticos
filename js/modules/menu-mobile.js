@@ -5,13 +5,15 @@ export default class MenuMobile {
     this.menuButton = document.querySelector(menuButton);
     this.menuList = document.querySelector(menuList);
     this.activeClass = 'active';
-    this.openMenu = this.openMenu.bind(this);
 
     if (events === undefined) this.events = ['touchstart', 'click'];
     else this.events = events;
+
+    this.openMenu = this.openMenu.bind(this);
   }
 
-  openMenu() {
+  openMenu(event) {
+    event.preventDefault();
     this.menuList.classList.add(this.activeClass);
     this.menuButton.classList.add(this.activeClass);
     outsideClick(this.menuList, this.events, () => {
@@ -22,6 +24,7 @@ export default class MenuMobile {
 
   addMenuMobileEvents() {
     this.events.forEach((evento) =>
+      // eslint-disable-next-line implicit-arrow-linebreak
       this.menuButton.addEventListener(evento, this.openMenu),
     );
   }
